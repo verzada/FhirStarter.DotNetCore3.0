@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FhirStarter.R4.Instigator.Core.Validation.Exceptions
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Validation.Exceptions
 {
     public class ValidateInputException : ArgumentException
     {

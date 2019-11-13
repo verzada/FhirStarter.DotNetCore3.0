@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using FhirStarter.R4.Instigator.Core.Validation;
+using FhirStarter.STU3.Instigator.DotNetCore3.Validation;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FhirStarter.R4.Instigator.Core.Controllers
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Controllers
 {
    public partial class FhirController
     {

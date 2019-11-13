@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using FhirStarter.R4.Instigator.Core.Model;
+using FhirStarter.STU3.Instigator.DotNetCore3.Model;
 using Microsoft.Extensions.Configuration;
 
-namespace FhirStarter.R4.Instigator.Core.Helper
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Helper
 {
     public static class FhirStarterSettingsHelper
     {

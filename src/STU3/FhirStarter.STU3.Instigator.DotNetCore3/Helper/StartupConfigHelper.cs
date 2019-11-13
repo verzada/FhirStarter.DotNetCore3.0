@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 
-namespace FhirStarter.R4.Instigator.Core.Helper
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Helper
 {
     public static class StartupConfigHelper
     {

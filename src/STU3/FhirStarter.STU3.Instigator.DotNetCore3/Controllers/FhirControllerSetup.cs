@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using FhirStarter.R4.Instigator.Core.Helper;
-using FhirStarter.R4.Instigator.Core.Validation;
 using FhirStarter.STU3.Detonator.DotNetCore3.Interface;
+using FhirStarter.STU3.Instigator.DotNetCore3.Helper;
+using FhirStarter.STU3.Instigator.DotNetCore3.Validation;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace FhirStarter.R4.Instigator.Core.Controllers
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Controllers
 {
     [Route("fhir"), EnableCors]
     public partial class FhirController

@@ -8,7 +8,7 @@ using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Validation;
 using Microsoft.Extensions.Logging;
 
-namespace FhirStarter.R4.Instigator.Core.Validation
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Validation
 {
    
 

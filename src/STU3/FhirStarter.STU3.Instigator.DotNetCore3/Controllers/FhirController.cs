@@ -1,13 +1,13 @@
 ﻿using System;
-using FhirStarter.R4.Detonator.Core.Interface;
-using FhirStarter.R4.Detonator.Core.SparkEngine.Core;
-using FhirStarter.R4.Detonator.Core.SparkEngine.Extensions;
-using FhirStarter.R4.Instigator.Core.Helper;
+using FhirStarter.STU3.Detonator.DotNetCore3.Interface;
+using FhirStarter.STU3.Detonator.DotNetCore3.SparkEngine.Core;
+using FhirStarter.STU3.Detonator.DotNetCore3.SparkEngine.Extensions;
+using FhirStarter.STU3.Instigator.DotNetCore3.Helper;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FhirStarter.R4.Instigator.Core.Controllers
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Controllers
 {
     public partial class FhirController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FhirStarter.R4.Instigator.Core.Model
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Model
 {
     public class TypeInitializer
     {

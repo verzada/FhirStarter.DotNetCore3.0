@@ -1,6 +1,6 @@
 ﻿using Hl7.Fhir.Model;
 
-namespace FhirStarter.R4.Instigator.Core.Validation
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Validation
 {
 
     public interface IProfileValidator

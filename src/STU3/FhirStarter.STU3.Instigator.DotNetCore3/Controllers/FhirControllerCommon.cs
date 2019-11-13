@@ -2,13 +2,13 @@
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using FhirStarter.R4.Instigator.Core.Validation.Exceptions;
 using FhirStarter.STU3.Detonator.DotNetCore3.MediaTypeHeaders;
+using FhirStarter.STU3.Instigator.DotNetCore3.Validation.Exceptions;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Microsoft.AspNetCore.Http;
 
-namespace FhirStarter.R4.Instigator.Core.Controllers
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Controllers
 {
     public partial class FhirController
     {

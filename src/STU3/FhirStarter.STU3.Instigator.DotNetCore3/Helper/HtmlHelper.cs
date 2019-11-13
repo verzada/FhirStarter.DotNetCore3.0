@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 
-namespace FhirStarter.R4.Instigator.Core.Helper
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Helper
 {
     public static class HtmlHelper
     {

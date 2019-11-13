@@ -1,6 +1,5 @@
 ﻿using System.Net;
-using System.Web.Http;
-using FhirStarter.R4.Detonator.Core.Interface;
+using FhirStarter.STU3.Detonator.DotNetCore3.Interface;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Microsoft.AspNetCore.Builder;
@@ -8,7 +7,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace FhirStarter.R4.Instigator.Core.Extension
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Extension
 {
     //https://code-maze.com/global-error-handling-aspnetcore/#builtinmiddleware
     //Global Error Handling in ASP.NET Core Web API

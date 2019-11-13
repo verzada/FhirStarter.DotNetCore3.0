@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 //https://stackoverflow.com/questions/49304972/asp-net-core-2-0-how-to-return-custom-json-or-xml-response-from-middleware
-namespace FhirStarter.R4.Instigator.Core.Extension
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Extension
 {
   public  class HeaderValidation
   {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using FhirStarter.R4.Instigator.Core.Helper;
-using FhirStarter.R4.Instigator.Core.Model;
-using FhirStarter.R4.Instigator.Core.Validation;
 using FhirStarter.STU3.Detonator.DotNetCore3.Interface;
+using FhirStarter.STU3.Instigator.DotNetCore3.Helper;
+using FhirStarter.STU3.Instigator.DotNetCore3.Model;
+using FhirStarter.STU3.Instigator.DotNetCore3.Validation;
 using Hl7.Fhir.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Logging;
 
-namespace FhirStarter.R4.Instigator.Core.Configuration
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Configuration
 {
     public static class FhirStarterConfig
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -9,7 +8,7 @@ using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Validation;
 
-namespace FhirStarter.R4.Instigator.Core.Validation
+namespace FhirStarter.STU3.Instigator.DotNetCore3.Validation
 {
     public static class ValidationHelper
     {
