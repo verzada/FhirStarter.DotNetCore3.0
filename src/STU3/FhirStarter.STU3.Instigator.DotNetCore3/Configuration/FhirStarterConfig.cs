@@ -26,9 +26,9 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Configuration
         /// Used in AddApplicationPart after .AddMvc
         /// </summary>
         /// <returns></returns>
-        public static Assembly GetDetonatorAssembly() 
+        public static Assembly GetDetonatorAssembly(string detonatorAssemblyName) 
         {
-            return GetReferencedAssembly("FhirStarter.R4.Detonator.Core");
+            return GetReferencedAssembly(detonatorAssemblyName);
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Configuration
         /// .AddApplicationPart(instigator).AddApplicationPart(detonator).AddControllersAsServices()
         /// </summary>
         /// <returns></returns>
-        public static Assembly GetInstigatorAssembly()
+        public static Assembly GetInstigatorAssembly(string instigatorAssembly)
         {
-            return GetReferencedAssembly("FhirStarter.R4.Instigator.Core");
+            return GetReferencedAssembly(instigatorAssembly);
         }
 
         //https://github.com/dotnet/corefx/issues/11639

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -13,14 +9,15 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
-        }
+            var host = Host.CreateDefaultBuilder().ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
+                webBuilder.ConfigureLogging((hostingContext, logging) => { logging.AddLog4Net("log4net.config"); });
+                webBuilder.UseIISIntegration();
+                webBuilder.UseStartup<Startup>();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            }).Build();
+            host.Run();
+        }
     }
 }

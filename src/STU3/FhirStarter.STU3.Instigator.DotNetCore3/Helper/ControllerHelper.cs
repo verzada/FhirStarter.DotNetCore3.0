@@ -46,7 +46,8 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Helper
 
         public static CapabilityStatement CreateMetaData(IEnumerable<IFhirService> services, IConfigurationRoot appSettings, HttpRequest request)
         {
-            var fhirServices = services as IFhirService[] ?? services.ToArray();
+            var enumerableFhirServices = services as IFhirService[] ?? services.ToArray();
+            var fhirServices = services as IFhirService[] ?? enumerableFhirServices.ToArray();
             if (!fhirServices.Any())
             {
                 return new CapabilityStatement();
@@ -60,8 +61,8 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Helper
                 CapabilityStatementBuilder.CreateServer(serviceName, publisher, fhirVersion);
 
             capabilityStatement.AddSearchTypeInteractionForResources();
-            capabilityStatement = capabilityStatement.AddCoreSearchParamsAllResources(services);
-            capabilityStatement = capabilityStatement.AddOperationDefinition(services, request);
+            capabilityStatement = capabilityStatement.AddCoreSearchParamsAllResources(enumerableFhirServices);
+          //  capabilityStatement = capabilityStatement.AddOperationDefinition(enumerableFhirServices, request);
 
             capabilityStatement.Experimental = false;
             capabilityStatement.Format = new List<string>{"xml+fhir", "json+fhir"};
@@ -73,7 +74,7 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Helper
             }
 
             capabilityStatement.Rest =
-                AddProfile(capabilityStatement.Rest, services);
+                AddProfile(capabilityStatement.Rest, enumerableFhirServices);
 
             return capabilityStatement;
 
@@ -110,7 +111,9 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Helper
 
                                 if (structureDefinition != null)
                                 {
-                                    resource.Profile = structureDefinition.Url;
+                                    var url = structureDefinition.Url;
+                                    var resourceReference = new ResourceReference(url);
+                                    resource.Profile = resourceReference;
                                 }
                             }
                         }
