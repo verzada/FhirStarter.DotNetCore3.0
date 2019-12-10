@@ -7,7 +7,9 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Hl7.Fhir.Specification.STU3" Version="1.4.0" />
+    <PackageReference Include="Hl7.Fhir.Specification.STU3" Version="1.4.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Hl7.Fhir.STU3" Version="1.4.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.0.0" />
@@ -56,10 +58,4 @@
   <ItemGroup>
     <EmbeddedResource Include="SparkEngine\renderxmlashtml.xslt" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Update="C:\Users\hha046\.nuget\packages\hl7.fhir.specification.stu3\1.4.0\contentFiles\any\any\specification.zip">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-  </Project>
+</Project>
