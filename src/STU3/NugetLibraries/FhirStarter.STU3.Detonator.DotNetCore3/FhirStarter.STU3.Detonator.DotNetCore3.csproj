@@ -57,6 +57,11 @@
     <EmbeddedResource Include="SparkEngine\renderxmlashtml.xslt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="C:\Users\hha046\.nuget\packages\hl7.fhir.specification.stu3\1.4.0\contentFiles\any\any\specification.zip">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <None Update="C:\Users\hha046\.nuget\packages\hl7.fhir.specification.stu3\1.4.0\contentFiles\any\any\specification.zip">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
