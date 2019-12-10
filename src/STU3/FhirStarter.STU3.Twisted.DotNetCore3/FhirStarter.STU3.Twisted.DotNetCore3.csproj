@@ -13,8 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FhirStarter.STU3.Instigator.DotNetCore3\FhirStarter.STU3.Instigator.DotNetCore3.csproj" />
-    <ProjectReference Include="..\NugetLibraries\FhirStarter.STU3.Detonator.DotNetCore3\FhirStarter.STU3.Detonator.DotNetCore3.csproj" />
+    <ProjectReference Include="..\NugetLibraries\FhirStarter.STU3.Instigator.DotNetCore3\FhirStarter.STU3.Instigator.DotNetCore3.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget Libraries", "Nuget Li
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FhirStarter.STU3.Detonator.DotNetCore3", "NugetLibraries\FhirStarter.STU3.Detonator.DotNetCore3\FhirStarter.STU3.Detonator.DotNetCore3.csproj", "{2775FDDD-D04A-4376-AB2F-168317E47934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FhirStarter.STU3.Instigator.DotNetCore3", "FhirStarter.STU3.Instigator.DotNetCore3\FhirStarter.STU3.Instigator.DotNetCore3.csproj", "{C54F8A9B-AC61-497A-84D1-552A88C9EBC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FhirStarter.STU3.Instigator.DotNetCore3", "NugetLibraries\FhirStarter.STU3.Instigator.DotNetCore3\FhirStarter.STU3.Instigator.DotNetCore3.csproj", "{3720E3C5-0D17-4D11-9CAC-9F4D6B2B98DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,17 +25,17 @@ Global
 		{2775FDDD-D04A-4376-AB2F-168317E47934}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2775FDDD-D04A-4376-AB2F-168317E47934}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2775FDDD-D04A-4376-AB2F-168317E47934}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C54F8A9B-AC61-497A-84D1-552A88C9EBC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C54F8A9B-AC61-497A-84D1-552A88C9EBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C54F8A9B-AC61-497A-84D1-552A88C9EBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C54F8A9B-AC61-497A-84D1-552A88C9EBC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3720E3C5-0D17-4D11-9CAC-9F4D6B2B98DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3720E3C5-0D17-4D11-9CAC-9F4D6B2B98DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3720E3C5-0D17-4D11-9CAC-9F4D6B2B98DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3720E3C5-0D17-4D11-9CAC-9F4D6B2B98DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2775FDDD-D04A-4376-AB2F-168317E47934} = {330F21AB-FA4C-4F2D-9300-E64F4AFA027E}
-		{C54F8A9B-AC61-497A-84D1-552A88C9EBC1} = {330F21AB-FA4C-4F2D-9300-E64F4AFA027E}
+		{3720E3C5-0D17-4D11-9CAC-9F4D6B2B98DD} = {330F21AB-FA4C-4F2D-9300-E64F4AFA027E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {771356F9-D8D2-43DB-833C-FDD5BADE7B95}

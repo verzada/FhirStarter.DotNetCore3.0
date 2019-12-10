@@ -8,7 +8,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Hl7.Fhir.Specification.STU3" Version="1.4.0">
-      <PrivateAssets>all</PrivateAssets>
+      <ExcludeAssets>contentFiles</ExcludeAssets>
+      <PrivateAssets>contentFiles</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Hl7.Fhir.STU3" Version="1.4.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
@@ -35,6 +36,7 @@
     <None Remove="SparkEngine\Handlers\**" />
     <None Remove="SparkEngine\Infrastructure\**" />
     <None Remove="SparkEngine\Search\**" />
+    <None Remove="**\specification.zip" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Formatters\FhirMediaTypeFormatter.cs" />
