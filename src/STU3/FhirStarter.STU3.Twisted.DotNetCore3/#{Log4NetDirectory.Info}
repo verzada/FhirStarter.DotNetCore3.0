@@ -30,3 +30,20 @@
 2019-12-09 13:41:39,197 [9] INFO  Executed action FhirStarter.STU3.Instigator.DotNetCore3.Controllers.FhirController.Read (FhirStarter.STU3.Instigator.DotNetCore3) in 16897.2991ms
 2019-12-09 13:41:39,202 [9] INFO  Executed endpoint 'FhirStarter.STU3.Instigator.DotNetCore3.Controllers.FhirController.Read (FhirStarter.STU3.Instigator.DotNetCore3)'
 2019-12-09 13:41:39,211 [9] INFO  Request finished in 16976.6168ms 200 text/xml; charset=utf-8
+2020-02-11 13:08:50,260 [1] INFO  Now listening on: http://localhost:5000
+2020-02-11 13:08:50,268 [1] INFO  Application started. Press Ctrl+C to shut down.
+2020-02-11 13:08:50,268 [1] INFO  Hosting environment: Development
+2020-02-11 13:08:50,268 [1] INFO  Content root path: C:\work\Kildekode\FhirStarter.DotNetCore3.0\src\STU3\FhirStarter.STU3.Twisted.DotNetCore3
+2020-02-11 13:08:57,872 [4] INFO  Request starting HTTP/1.1 GET http://localhost:5000/fhir/Patient/123  
+2020-02-11 13:08:57,913 [4] INFO  Executing endpoint 'FhirStarter.STU3.Instigator.DotNetCore3.Controllers.FhirController.Read (FhirStarter.STU3.Instigator.DotNetCore3)'
+2020-02-11 13:08:57,934 [4] INFO  Route matched with {action = "Read", controller = "Fhir"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Read(System.String, System.String) on controller FhirStarter.STU3.Instigator.DotNetCore3.Controllers.FhirController (FhirStarter.STU3.Instigator.DotNetCore3).
+2020-02-11 13:09:00,994 [4] INFO  Executing ObjectResult, writing value of type 'Hl7.Fhir.Model.Patient'.
+2020-02-11 13:09:01,000 [4] INFO  Executed action FhirStarter.STU3.Instigator.DotNetCore3.Controllers.FhirController.Read (FhirStarter.STU3.Instigator.DotNetCore3) in 3062.6925ms
+2020-02-11 13:09:01,001 [4] INFO  Executed endpoint 'FhirStarter.STU3.Instigator.DotNetCore3.Controllers.FhirController.Read (FhirStarter.STU3.Instigator.DotNetCore3)'
+2020-02-11 13:09:01,001 [4] INFO  Request finished in 3131.4195ms 200 text/xml; charset=utf-8
+2020-02-11 13:21:15,992 [19] INFO  Application is shutting down...
+2020-02-11 13:46:54,955 [1] INFO  Now listening on: http://localhost:5000
+2020-02-11 13:46:54,968 [1] INFO  Application started. Press Ctrl+C to shut down.
+2020-02-11 13:46:54,970 [1] INFO  Hosting environment: Development
+2020-02-11 13:46:54,972 [1] INFO  Content root path: C:\work\Kildekode\FhirStarter.DotNetCore3.0\src\STU3\FhirStarter.STU3.Twisted.DotNetCore3
+2020-02-11 13:47:01,112 [2] INFO  Application is shutting down...
