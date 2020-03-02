@@ -9,22 +9,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FhirStarter.STU3.Twisted.DotNetCore3.Services
 {
-    public class PatientService:IFhirService
+    public class PatientService : IFhirService
     {
         public string GetServiceResourceReference()
         {
             return nameof(Patient);
         }
 
-      
+
         public Base Create(IKey key, Base resource)
         {
             throw new System.NotImplementedException();
         }
 
-        public Base Create(IKey key, Resource resource)
+        public Base Create(IKey key,Resource resource)
         {
-            throw new System.NotImplementedException();
+            var test = (Patient) resource;
+            return test;
         }
 
         public Base Read(SearchParams searchParams)

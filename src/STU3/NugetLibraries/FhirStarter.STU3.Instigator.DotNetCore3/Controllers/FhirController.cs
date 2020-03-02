@@ -120,11 +120,11 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Controllers
         // return 201 when created
         // return 202 when takes too long
         [HttpPost, Route("{type}")]
-        public ActionResult Create(string type, Resource resource)
+        public ActionResult Create(string type,[FromBody] Resource resource)
         {
             if (_validationEnabled)
             {
-                resource = (Resource) ValidateResource(resource, true);
+                resource = (Resource)ValidateResource(resource, true);
             }
             if (resource is OperationOutcome)
             {
@@ -137,7 +137,7 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Controllers
         // return 201 when created
         // return 202 when takes too long
         [HttpPut, Route("{type}/{id}")]
-        public ActionResult Update(string type, string id, Resource resource)
+        public ActionResult Update(string type, string id, [FromBody] Resource resource)
         {
             if (_validationEnabled)
             {
@@ -168,7 +168,7 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Controllers
         // return 201 when created
         // return 202 when takes too long
         [HttpPatch, Route("{type}/{id}")]
-        public ActionResult Patch(string type, string id, Resource resource)
+        public ActionResult Patch(string type, string id, [FromBody]Resource resource)
         {
             var service = ControllerHelper.GetFhirService(type, HttpContext.RequestServices);
             if (service != null)

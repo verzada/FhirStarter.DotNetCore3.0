@@ -20,7 +20,9 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Extension
                 appError.Run(async context =>
                 {
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    context.Response.ContentType = "application/json";
+
+                    // check for header ... don't assume json
+                    //context.Response.ContentType = "application/json";
                     var error = context.Features.Get<IExceptionHandlerFeature>();
                     if (error != null)
                     {

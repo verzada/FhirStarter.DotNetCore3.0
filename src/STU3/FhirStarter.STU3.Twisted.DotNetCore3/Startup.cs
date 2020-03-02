@@ -5,13 +5,11 @@ using FhirStarter.STU3.Instigator.DotNetCore3.Configuration;
 using FhirStarter.STU3.Instigator.DotNetCore3.Helper;
 using FhirStarter.STU3.Instigator.DotNetCore3.Model;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace FhirStarter.STU3.Twisted.DotNetCore3
 {
@@ -45,16 +43,34 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3
             services.AddControllers(controller =>
                 {
                     controller.OutputFormatters.Clear();
+                    controller.InputFormatters.Clear();
                     controller.RespectBrowserAcceptHeader = true;
+                    // output
                     controller.OutputFormatters.Add(new JsonFhirFormatterDotNetCore3());
                     controller.OutputFormatters.Add(new XmlFhirSerializerOutputFormatterDotNetCore3());
-                    controller.OutputFormatters.Add(new XmlFhirSerializerOutputFormatterDotNetCore3());
                     controller.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+
+                    // input
+                    controller.InputFormatters.Add(new JsonFhirInputFormatter());
+                    controller.InputFormatters.Add(new XmlFhirSerializerInputFormatterDotNetCore3());
+
                     controller.Filters.Add(new FhirExceptionFilter());
                 })
                 .AddApplicationPart(instigator).AddApplicationPart(detonator).AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddHttpContextAccessor();
+            services.AddMvc(config =>
+            {
+                config.RespectBrowserAcceptHeader = true;
+
+                config.OutputFormatters.Add(new JsonFhirFormatterDotNetCore3());
+                config.OutputFormatters.Add(new XmlFhirSerializerOutputFormatterDotNetCore3());
+                config.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+
+                // input
+                //config.InputFormatters.Add(new JsonFhirInputFormatter());
+                //config.InputFormatters.Add(new XmlFhirSerializerInputFormatterDotNetCore3());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
