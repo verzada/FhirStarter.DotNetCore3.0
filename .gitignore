@@ -328,3 +328,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/src/STU3/FhirStarter.STU3.Twisted.DotNetCore3/${TargetDir}specification.zip

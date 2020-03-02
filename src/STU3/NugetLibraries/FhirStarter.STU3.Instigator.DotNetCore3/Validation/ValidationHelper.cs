@@ -29,7 +29,7 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Validation
                 GenerateSnapshot = true,
                 Trace = true,
                 ResourceResolver = combinedSource,
-                ResolveExteralReferences = true,
+                ResolveExternalReferences = true,
                 SkipConstraintValidation = false
             };
             var validator = new Validator(settings);

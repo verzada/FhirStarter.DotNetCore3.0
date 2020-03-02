@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FhirStarter.STU3.Detonator.DotNetCore3.Interface;
 using FhirStarter.STU3.Detonator.DotNetCore3.SparkEngine.Core;
 using Hl7.Fhir.Model;
@@ -13,6 +14,12 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3.Services
         public string GetServiceResourceReference()
         {
             return nameof(Patient);
+        }
+
+      
+        public Base Create(IKey key, Base resource)
+        {
+            throw new System.NotImplementedException();
         }
 
         public Base Create(IKey key, Resource resource)
@@ -30,6 +37,10 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3.Services
 
         public Base Read(string id)
         {
+            if (id.Equals("Fail"))
+            {
+                throw new ArgumentException($"Could not find patient by id {id}");
+            }
             var patient = new Patient { Name = new List<HumanName>() };
             var humanName = new HumanName { Family = "yo", Given = new List<string> { "yo", "next" } };
             patient.Name.Add(humanName);
