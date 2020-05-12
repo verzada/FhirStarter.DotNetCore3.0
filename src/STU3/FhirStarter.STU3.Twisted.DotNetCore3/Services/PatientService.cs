@@ -19,15 +19,17 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3.Services
 
         public Base Create(IKey key, Base resource)
         {
-            return new Patient
-            {
-                Active =  true,
-                Id =  "12345"
-            };
+            throw new Exception("SHould not get here");
+            //return new Patient
+            //{
+            //    Active =  true,
+            //    Id =  "12345"
+            //};
         }
 
         public Base Create(IKey key,Resource resource)
         {
+            throw new Exception("SHould not get here");
             var test = (Patient) resource;
             return test;
         }

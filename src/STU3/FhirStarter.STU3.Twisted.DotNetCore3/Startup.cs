@@ -1,15 +1,19 @@
 using System;
+using System.Linq;
 using FhirStarter.STU3.Detonator.DotNetCore3.Filter;
 using FhirStarter.STU3.Detonator.DotNetCore3.Formatters;
 using FhirStarter.STU3.Instigator.DotNetCore3.Configuration;
 using FhirStarter.STU3.Instigator.DotNetCore3.Helper;
+using FhirStarter.STU3.Instigator.DotNetCore3.Middleware;
 using FhirStarter.STU3.Instigator.DotNetCore3.Model;
+using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace FhirStarter.STU3.Twisted.DotNetCore3
 {
@@ -40,6 +44,7 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3
 
             services.Configure<FhirStarterSettings>(appSettings.GetSection(nameof(FhirStarterSettings)));
             services.AddRouting();
+            
             services.AddControllers(controller =>
                 {
                     controller.OutputFormatters.Clear();
@@ -54,7 +59,7 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3
                     controller.InputFormatters.Add(new JsonFhirInputFormatter());
                     controller.InputFormatters.Add(new XmlFhirSerializerInputFormatterDotNetCore3());
 
-                    controller.Filters.Add(new FhirExceptionFilter());
+                    controller.Filters.Add(typeof(FhirExceptionFilter));
                 })
                 .AddApplicationPart(instigator).AddApplicationPart(detonator).AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
@@ -67,10 +72,19 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3
                 config.OutputFormatters.Add(new XmlFhirSerializerOutputFormatterDotNetCore3());
                 config.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
 
-                // input
-                //config.InputFormatters.Add(new JsonFhirInputFormatter());
-                //config.InputFormatters.Add(new XmlFhirSerializerInputFormatterDotNetCore3());
+                
             });
+
+        }
+
+        private ILogger<FhirExceptionFilter> GetLogger(IServiceCollection services)
+        {
+            var loggerServices = services.Where(t => t.ServiceType == typeof(ILogger<Startup>)).ToList();
+            foreach (var service in loggerServices)
+            {
+                Console.WriteLine(service.ServiceType);
+            }
+            return null;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,14 +93,17 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3
             
             app.UseRouting();
 
+            //app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseAuthorization();
+            
             app.UseCors();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
             
+
         }
     }
 }
