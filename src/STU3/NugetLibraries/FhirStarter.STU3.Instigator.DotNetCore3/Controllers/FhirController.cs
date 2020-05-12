@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FhirStarter.STU3.Detonator.DotNetCore3.Interface;
 using FhirStarter.STU3.Detonator.DotNetCore3.SparkEngine.Core;
 using FhirStarter.STU3.Detonator.DotNetCore3.SparkEngine.Extensions;
@@ -56,6 +57,13 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Controllers
 
         private ActionResult ResourceCreate(string type, Resource resource, IFhirBaseService service)
         {
+            var headerAccept = Request.Headers.FirstOrDefault(t => t.Key.Equals("Accept"));
+            if (headerAccept.Value.Equals("*/*"))
+            {
+                var contentType = Request.ContentType;
+                Response.ContentType = contentType;
+            }
+            
             if (service == null || string.IsNullOrEmpty(type) || resource == null)
                 return BadRequest($"Service for resource {nameof(resource)} must exist.");
             var key = Key.Create(type);

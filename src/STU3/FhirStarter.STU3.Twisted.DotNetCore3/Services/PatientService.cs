@@ -19,7 +19,11 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3.Services
 
         public Base Create(IKey key, Base resource)
         {
-            throw new System.NotImplementedException();
+            return new Patient
+            {
+                Active =  true,
+                Id =  "12345"
+            };
         }
 
         public Base Create(IKey key,Resource resource)
