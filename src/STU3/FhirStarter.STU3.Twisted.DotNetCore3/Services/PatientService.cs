@@ -29,7 +29,7 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3.Services
 
         public Base Create(IKey key,Resource resource)
         {
-            throw new Exception("SHould not get here");
+           
             var test = (Patient) resource;
             return test;
         }

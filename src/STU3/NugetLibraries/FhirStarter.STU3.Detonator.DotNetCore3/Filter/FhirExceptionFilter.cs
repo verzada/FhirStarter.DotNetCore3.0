@@ -28,15 +28,6 @@ namespace FhirStarter.STU3.Detonator.DotNetCore3.Filter
                 Diagnostics = context.Exception.StackTrace
             };
 
-            //if (ShowStackTrace)
-            //{
-            //    issue.Diagnostics = exception.StackTrace;
-            //}
-
-            //var responseIssue = CheckForHttpResponseException(exception, ShowStackTrace);
-            //if (responseIssue != null)
-            //    operationOutCome.Issue.Add(responseIssue);
-
             operationOutCome.Issue.Add(issue);
             context.Result = new ObjectResult(operationOutCome);
             context.ExceptionHandled = true;

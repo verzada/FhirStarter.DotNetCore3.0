@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using FhirStarter.STU3.Detonator.DotNetCore3.Filter;
 using FhirStarter.STU3.Detonator.DotNetCore3.Formatters;
 using FhirStarter.STU3.Instigator.DotNetCore3.Configuration;
+using FhirStarter.STU3.Instigator.DotNetCore3.Diagnostics;
 using FhirStarter.STU3.Instigator.DotNetCore3.Helper;
 using FhirStarter.STU3.Instigator.DotNetCore3.Model;
 using Microsoft.AspNetCore.Builder;
@@ -72,30 +74,19 @@ namespace FhirStarter.STU3.Twisted.DotNetCore3
 
                 
             });
-
+            services.AddSingleton<DiagnosticObserver>();
         }
 
-        private ILogger<FhirExceptionFilter> GetLogger(IServiceCollection services)
-        {
-            var loggerServices = services.Where(t => t.ServiceType == typeof(ILogger<Startup>)).ToList();
-            foreach (var service in loggerServices)
-            {
-                Console.WriteLine(service.ServiceType);
-            }
-            return null;
-        }
+       
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+            DiagnosticListener diagnosticListenerSource, DiagnosticObserver diagnosticObserver)
         {
-            
+            diagnosticListenerSource.Subscribe(diagnosticObserver);
             app.UseRouting();
-
-            //app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseAuthorization();
-            
             app.UseCors();
-            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
