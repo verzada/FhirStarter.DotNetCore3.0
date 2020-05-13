@@ -41,7 +41,7 @@ namespace FhirStarter.STU3.Instigator.DotNetCore3.Diagnostics
                         var hostname = httpContext.Connection.RemoteIpAddress;
                         var requestLength = httpContext.Request.ContentLength;
                         var path = httpContext.Request.Path;
-                        _logger.LogInformation($"Method: {method}, ReqLength: {requestLength}, Hostname: {hostname}, Path: {path}, Elapsed: {duration.TotalMilliseconds} ms, Content-Type: {contentType}");
+                        _logger.LogInformation($"Method: {method}, ReqLength: {requestLength}, Hostname: {hostname}, Path: {path}, Elapsed: {Math.Round(duration.TotalMilliseconds)} ms, Content-Type: {contentType}");
                     }
                     
                     break;
