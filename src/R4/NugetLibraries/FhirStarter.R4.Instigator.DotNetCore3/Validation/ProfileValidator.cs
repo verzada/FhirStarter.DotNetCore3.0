@@ -10,8 +10,6 @@ using Microsoft.Extensions.Logging;
 
 namespace FhirStarter.R4.Instigator.DotNetCore3.Validation
 {
-   
-
     public class ProfileValidator:IProfileValidator
     {
         private readonly ILogger _log;
@@ -19,10 +17,7 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Validation
         
         public ProfileValidator(Validator validator, ILogger logger)
         {
-            if (_validator == null)
-            {
-                _validator = validator;
-            };
+            _validator ??= validator;
             _log = logger;
         }
 
@@ -32,10 +27,8 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Validation
             if (!(resource is Bundle) || !threadedValidation)
             {
                 var xmlSerializer = new FhirXmlSerializer();
-                using (var reader = XDocument.Parse(xmlSerializer.SerializeToString(resource)).CreateReader())
-                {
-                    result =  RunValidation(onlyErrors, reader);
-                }
+                using var reader = XDocument.Parse(xmlSerializer.SerializeToString(resource)).CreateReader();
+                result =  RunValidation(onlyErrors, reader);
             }
             else
             {
@@ -82,13 +75,11 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Validation
                 Parallel.ForEach(parallelItems, new ParallelOptions {MaxDegreeOfParallelism = parallelItems.Count},
                     loopedResource =>
                     {
-                        using (var reader = XDocument.Parse(xmlSerializer.SerializeToString(loopedResource))
-                   .CreateReader())
-                        {
-                            var localOperationOutCome = RunValidation(onlyErrors, reader);
+                        using var reader = XDocument.Parse(xmlSerializer.SerializeToString(loopedResource))
+                            .CreateReader();
+                        var localOperationOutCome = RunValidation(onlyErrors, reader);
 
-                            operationOutcome.Issue.AddRange(localOperationOutCome.Issue);
-                        }
+                        operationOutcome.Issue.AddRange(localOperationOutCome.Issue);
                     });
             }
         }

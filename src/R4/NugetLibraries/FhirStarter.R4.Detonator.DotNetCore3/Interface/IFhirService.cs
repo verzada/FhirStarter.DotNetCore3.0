@@ -12,7 +12,5 @@ namespace FhirStarter.R4.Detonator.DotNetCore3.Interface
         CapabilityStatement.RestComponent GetRestDefinition();
         OperationDefinition GetOperationDefinition(HttpRequest request);
         string GetStructureDefinitionNameForResourceProfile();
-
-
     }
 }

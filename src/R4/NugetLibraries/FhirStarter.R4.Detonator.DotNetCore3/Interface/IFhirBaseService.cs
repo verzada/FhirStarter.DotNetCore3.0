@@ -7,7 +7,6 @@ namespace FhirStarter.R4.Detonator.DotNetCore3.Interface
 {
     public interface IFhirBaseService
     {
-        // The name of the Resource you can query (earlier called GetAlias)
         string GetServiceResourceReference();
         Base Create(IKey key, Resource resource);
         Base Read(SearchParams searchParams);

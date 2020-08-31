@@ -10,7 +10,9 @@ using Microsoft.IO;
 
 namespace FhirStarter.R4.Detonator.DotNetCore3.Formatters
 {
-    //https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/web-api/advanced/custom-formatters/sample/Formatters/VcardInputFormatter.cs
+    /// <summary>
+    /// https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/web-api/advanced/custom-formatters/sample/Formatters/VcardInputFormatter.cs
+    /// </summary>
     public class XmlFhirSerializerInputFormatterDotNetCore3 : TextInputFormatter
     {
         private readonly RecyclableMemoryStreamManager _recyclableMemoryStreamManager;
@@ -49,7 +51,6 @@ namespace FhirStarter.R4.Detonator.DotNetCore3.Formatters
                 throw new ArgumentException(nameof(context));
             }
 
-            //var request = context.HttpContext.Request;
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await context.HttpContext.Request.Body.CopyToAsync(requestStream);
 
@@ -66,8 +67,8 @@ namespace FhirStarter.R4.Detonator.DotNetCore3.Formatters
 
                 do
                 {
-                    readChunkLength = reader.ReadBlock(readChunk, 0, readChunkBufferLength);
-                    textWriter.Write(readChunk, 0, readChunkLength);
+                    readChunkLength = await reader.ReadBlockAsync(readChunk, 0, readChunkBufferLength);
+                    await textWriter.WriteAsync(readChunk, 0, readChunkLength);
                 } while (readChunkLength > 0);
 
                 var result = textWriter.ToString();
@@ -78,26 +79,6 @@ namespace FhirStarter.R4.Detonator.DotNetCore3.Formatters
 
                     return await InputFormatterResult.SuccessAsync(resource);
                 }
-
-                //var readChunkBufferLength = 4096;
-                //var readChunkLength =  new char[readChunkBufferLength];
-
-                //      do
-                //{
-                //    readChunkLength = reader.ReadBlock(readChunk, 0, readChunkLength);
-                //    textWriter.Write(readChunk, 0, readChunkLength);
-                //} while (readChunkLength > 0);
-
-                //}
-
-                //using var reader = new StreamReader(request.Body, encoding);
-                //try
-                //{
-                //    var resourceStr = reader.ReadToEnd();
-                //    var xmlFhirSerializer = new FhirXmlParser();
-                //    var resource = xmlFhirSerializer.Parse(resourceStr);
-
-                //    return await InputFormatterResult.SuccessAsync(resource);
             }
             catch
             {

@@ -22,7 +22,6 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
         private readonly bool _validationEnabled;
 
         private bool _isMockupEnabled;
-        //private AcceptHeaderAttribute _acceptHeaderAttributes;
 
         public FhirController(ILogger<IFhirService> loggerFactory, IConfigurationRoot fhirStarterSettings,
             IServiceProvider serviceProvider, IProfileValidator profileValidator)

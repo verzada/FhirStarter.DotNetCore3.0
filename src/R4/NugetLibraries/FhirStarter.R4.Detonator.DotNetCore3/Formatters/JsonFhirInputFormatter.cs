@@ -66,8 +66,8 @@ namespace FhirStarter.R4.Detonator.DotNetCore3.Formatters
 
                 do
                 {
-                    readChunkLength = reader.ReadBlock(readChunk, 0, readChunkBufferLength);
-                    textWriter.Write(readChunk, 0, readChunkLength);
+                    readChunkLength = await reader.ReadBlockAsync(readChunk, 0, readChunkBufferLength);
+                    await textWriter.WriteAsync(readChunk, 0, readChunkLength);
                 } while (readChunkLength > 0);
 
                 var result = textWriter.ToString();
