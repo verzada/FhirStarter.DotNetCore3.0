@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 
 namespace FhirStarter.R4.Twisted.DotNetCore3
 {
-    public class Program
+    public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             var host = Host.CreateDefaultBuilder().ConfigureWebHostDefaults(webBuilder =>
             {

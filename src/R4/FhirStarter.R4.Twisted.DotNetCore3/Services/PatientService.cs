@@ -20,16 +20,10 @@ namespace FhirStarter.R4.Twisted.DotNetCore3.Services
         public Base Create(IKey key, Base resource)
         {
             throw new Exception("SHould not get here");
-            //return new Patient
-            //{
-            //    Active =  true,
-            //    Id =  "12345"
-            //};
         }
 
         public Base Create(IKey key,Resource resource)
         {
-           
             var test = (Patient) resource;
             return test;
         }
@@ -56,32 +50,32 @@ namespace FhirStarter.R4.Twisted.DotNetCore3.Services
 
         public ActionResult Update(IKey key, Resource resource)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public ActionResult Delete(IKey key)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public ActionResult Patch(IKey key, Resource resource)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CapabilityStatement.RestComponent GetRestDefinition()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public OperationDefinition GetOperationDefinition(HttpRequest request)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public string GetStructureDefinitionNameForResourceProfile()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

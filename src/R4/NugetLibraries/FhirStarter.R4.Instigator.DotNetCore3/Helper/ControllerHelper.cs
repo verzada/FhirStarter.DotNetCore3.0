@@ -35,12 +35,7 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Helper
 
         public static IEnumerable<IFhirService> GetFhirServices(IServiceProvider serviceProvider)
         {
-            if (serviceProvider == null)
-            {
-
-            }
-
-            var request = serviceProvider.GetService<IEnumerable<IFhirService>>();
+            var request = serviceProvider?.GetService<IEnumerable<IFhirService>>();
             return request;
         }
 
@@ -62,8 +57,6 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Helper
 
             capabilityStatement.AddSearchTypeInteractionForResources();
             capabilityStatement = capabilityStatement.AddCoreSearchParamsAllResources(enumerableFhirServices);
-          //  capabilityStatement = capabilityStatement.AddOperationDefinition(enumerableFhirServices, request);
-
             capabilityStatement.Experimental = false;
             capabilityStatement.Format = new List<string>{"xml+fhir", "json+fhir"};
 
@@ -87,7 +80,6 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Helper
             if (restComponents.Any())
             {
                 var structureDefinitions = ValidationHelper.GetStructureDefinitions();
-                //TODO: Don't know what to do here..
 
                 var definitions = structureDefinitions as StructureDefinition[] ?? structureDefinitions.ToArray();
                 var fhirServices = services as IFhirService[] ?? services.ToArray();
@@ -128,7 +120,6 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Helper
             var fhirServices = services as IFhirService[] ?? services.ToArray();
             var serviceName = fhirServices.Length > 1 ? "The following services are available: " : "The following service is available: ";
 
-            //var servicesAsArray = services.ToArray();
             for (var i = 0; i < fhirServices.Length; i++)
             {
                 serviceName += fhirServices[i].GetServiceResourceReference();
@@ -159,7 +150,7 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Helper
                 bool.TryParse(keyValue.Value, out var keyBool);
                 return keyBool;
             }
-            throw new ArgumentException($"The setting {key} must be defined in the {nameof(FhirStarterSettings)} section of appsettings with a true / false value");
+            throw new ArgumentException($"The setting {key} must be defined in the {nameof(FhirStarterSettings)} section of appSettings with a true / false value");
         }
 
         public static string GetFhirStarterSettingString(IConfigurationRoot appSettings, string key)
@@ -167,11 +158,9 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Helper
             var keyValue = appSettings.GetSection($"FhirStarterSettings:{key}");
             if (!string.IsNullOrEmpty(keyValue.Value))
             {
-                //bool.TryParse(keyValue.Value, out var keyBool);
-                //return keyBool;
                 return keyValue.Value;
             }
-            throw new ArgumentException($"The setting {key} must be defined in the {nameof(FhirStarterSettings)} section of appsettings with a value");
+            throw new ArgumentException($"The setting {key} must be defined in the {nameof(FhirStarterSettings)} section of appSettings with a value");
         }
     }
 }

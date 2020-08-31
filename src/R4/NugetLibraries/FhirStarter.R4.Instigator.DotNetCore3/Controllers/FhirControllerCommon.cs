@@ -12,7 +12,6 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
 {
     public partial class FhirController
     {
-
         private HttpResponseMessage SendResponse(Base resource)
         {
             var returnJson = ReturnJson(Request.Headers);

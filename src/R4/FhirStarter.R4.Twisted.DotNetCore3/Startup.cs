@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using FhirStarter.R4.Detonator.DotNetCore3.Filter;
 using FhirStarter.R4.Detonator.DotNetCore3.Formatters;
 using FhirStarter.R4.Instigator.DotNetCore3.Configuration;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FhirStarter.R4.Twisted.DotNetCore3
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -35,7 +37,7 @@ namespace FhirStarter.R4.Twisted.DotNetCore3
         {
             var appSettings =
                 StartupConfigHelper.BuildConfigurationFromJson(AppContext.BaseDirectory, "appsettings.json");
-            FhirStarterConfig.SetupFhir(services, appSettings, CompatibilityVersion.Version_3_0);
+            FhirStarterConfig.SetupFhir(services, appSettings, CompatibilityVersion.Latest);
 
             var detonator = FhirStarterConfig.GetDetonatorAssembly(appSettings["FhirStarterSettings:FhirDetonatorAssembly"]);
             var instigator = FhirStarterConfig.GetInstigatorAssembly(appSettings["FhirStarterSettings:FhirInstigatorAssembly"]);
@@ -60,7 +62,7 @@ namespace FhirStarter.R4.Twisted.DotNetCore3
                     controller.Filters.Add(typeof(FhirExceptionFilter));
                 })
                 .AddApplicationPart(instigator).AddApplicationPart(detonator).AddControllersAsServices()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                .SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddHttpContextAccessor();
             services.AddMvc(config =>
             {

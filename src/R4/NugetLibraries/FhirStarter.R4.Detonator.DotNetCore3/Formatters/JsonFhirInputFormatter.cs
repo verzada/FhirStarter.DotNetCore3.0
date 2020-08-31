@@ -10,8 +10,10 @@ using Microsoft.IO;
 
 namespace FhirStarter.R4.Detonator.DotNetCore3.Formatters
 {
-    //https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/web-api/advanced/custom-formatters/sample/Formatters/VcardInputFormatter.cs
-   public class JsonFhirInputFormatter : TextInputFormatter
+    /// <summary>
+    /// https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/web-api/advanced/custom-formatters/sample/Formatters/VcardInputFormatter.cs
+    /// </summary>
+    public class JsonFhirInputFormatter : TextInputFormatter
     {
         private readonly RecyclableMemoryStreamManager _recyclableMemoryStreamManager;
 
@@ -48,7 +50,6 @@ namespace FhirStarter.R4.Detonator.DotNetCore3.Formatters
                 throw new ArgumentException(nameof(context));
             }
 
-            //var request = context.HttpContext.Request;
             await using var requestStream = _recyclableMemoryStreamManager.GetStream();
             await context.HttpContext.Request.Body.CopyToAsync(requestStream);
 
