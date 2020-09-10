@@ -20,6 +20,7 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
         private readonly IProfileValidator _profileValidator;
 
         private readonly bool _validationEnabled;
+        private readonly bool _returnValidatedResource;
 
         private bool _isMockupEnabled;
 
@@ -31,6 +32,9 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
 
             _validationEnabled = ControllerHelper.GetFhirStarterSettingBool(_appSettings, "EnableValidation");
             _isMockupEnabled = ControllerHelper.GetFhirStarterSettingBool(_appSettings, "MockupEnabled");
+            _returnValidatedResource =
+                ControllerHelper.GetFhirStarterSettingBool(_appSettings, "ReturnValidatedResource");
+
             _fhirServices = ControllerHelper.GetFhirServices(serviceProvider);
             _profileValidator = profileValidator;
         }

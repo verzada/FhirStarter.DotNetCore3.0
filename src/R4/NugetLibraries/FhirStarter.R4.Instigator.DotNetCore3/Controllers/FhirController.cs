@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using FhirStarter.R4.Detonator.DotNetCore3.Interface;
@@ -36,8 +35,22 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
         {
             if (_validationEnabled)
             {
-                var validation = _profileValidator.Validate((Resource) result);
-                if (!validation.Success)
+                result = HandleValidation(result);
+            }
+
+            if (result is OperationOutcome)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        private Base HandleValidation(Base result)
+        {
+            var validation = _profileValidator.Validate((Resource) result);
+            if (!validation.Success)
+            {
+                if (_returnValidatedResource)
                 {
                     var xmlString = new FhirXmlSerializer().SerializeToDocument(result).ToString();
                     var htmlEncoder = HtmlEncoder.Create(new TextEncoderSettings());
@@ -48,17 +61,12 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
                         Status = Narrative.NarrativeStatus.Generated,
                         Div = htmlEncodedString
                     };
-                    result = validation;
                 }
+
+                result = validation;
             }
 
-            //Setting default contenttype to text/xml
-          //  Response.ContentType = !string.IsNullOrEmpty(Request.ContentType) ? Request.ContentType : "application/xml";
-            if (result is OperationOutcome)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
+            return result;
         }
 
         private ActionResult ResourceCreate(string type, Resource resource, IFhirBaseService service)
