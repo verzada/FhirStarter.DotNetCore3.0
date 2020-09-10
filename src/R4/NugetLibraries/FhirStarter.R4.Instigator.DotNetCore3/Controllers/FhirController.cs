@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using FhirStarter.R4.Detonator.DotNetCore3.Interface;
 using FhirStarter.R4.Detonator.DotNetCore3.SparkEngine.Core;
 using FhirStarter.R4.Detonator.DotNetCore3.SparkEngine.Extensions;
@@ -37,17 +39,21 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
                 var validation = _profileValidator.Validate((Resource) result);
                 if (!validation.Success)
                 {
-                 
+                    var xmlString = new FhirXmlSerializer().SerializeToDocument(result).ToString();
+                    var htmlEncoder = HtmlEncoder.Create(new TextEncoderSettings());
+                    var htmlEncodedString = htmlEncoder.Encode(xmlString);
+
                     validation.Text = new Narrative
                     {
-                        Div = new FhirXmlSerializer().SerializeToDocument(result).ToString()
+                        Status = Narrative.NarrativeStatus.Generated,
+                        Div = htmlEncodedString
                     };
                     result = validation;
                 }
             }
 
             //Setting default contenttype to text/xml
-            Response.ContentType = !string.IsNullOrEmpty(Request.ContentType) ? Request.ContentType : "text/xml";
+          //  Response.ContentType = !string.IsNullOrEmpty(Request.ContentType) ? Request.ContentType : "application/xml";
             if (result is OperationOutcome)
             {
                 return BadRequest(result);
