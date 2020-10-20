@@ -26,7 +26,7 @@ namespace FhirStarter.R4.Detonator.DotNetCore3.SparkEngine.Extensions
             var query = request.Query;
             foreach (var pair in query)
             {
-                list.Add(new Tuple<string, string>(pair.Key,pair.Value));
+                list.AddRange(pair.Value.Select(splitValue => new Tuple<string, string>(pair.Key, splitValue)));
             }
 
             return list;
