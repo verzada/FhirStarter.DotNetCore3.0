@@ -22,4 +22,4 @@ It possible to change from Log4Net to your preferred logging tool. FhirStarter s
 
 # About AppSettings
 
-[About AppSettings](../Shared/AboutAppSettings)
+[About AppSettings](../Shared/AboutAppSettings.md)
