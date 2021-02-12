@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using FhirStarter.R4.Detonator.DotNetCore3.Interface;
 using FhirStarter.R4.Detonator.DotNetCore3.SparkEngine.Core;
 using FhirStarter.R4.Detonator.DotNetCore3.SparkEngine.Extensions;
 using FhirStarter.R4.Instigator.DotNetCore3.Helper;
 using Hl7.Fhir.Model;
+using Hl7.Fhir.Rest;
 using Hl7.Fhir.Serialization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
@@ -47,26 +51,20 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
 
         private Base HandleValidation(Base result)
         {
-            var validation = _profileValidator.Validate((Resource) result);
-            if (!validation.Success)
+            var validation = _profileValidator.Validate((Resource)result);
+            if (validation.Success) return result;
+            if (!_returnValidatedResource) return validation;
+            var xmlString = new FhirXmlSerializer().SerializeToDocument(result).ToString();
+            var htmlEncoder = HtmlEncoder.Create(new TextEncoderSettings());
+            var htmlEncodedString = htmlEncoder.Encode(xmlString);
+
+            validation.Text = new Narrative
             {
-                if (_returnValidatedResource)
-                {
-                    var xmlString = new FhirXmlSerializer().SerializeToDocument(result).ToString();
-                    var htmlEncoder = HtmlEncoder.Create(new TextEncoderSettings());
-                    var htmlEncodedString = htmlEncoder.Encode(xmlString);
+                Status = Narrative.NarrativeStatus.Generated,
+                Div = htmlEncodedString
+            };
 
-                    validation.Text = new Narrative
-                    {
-                        Status = Narrative.NarrativeStatus.Generated,
-                        Div = htmlEncodedString
-                    };
-                }
-
-                result = validation;
-            }
-
-            return result;
+            return validation;
         }
 
         private ActionResult ResourceCreate(string type, Resource resource, IFhirBaseService service)
@@ -77,7 +75,7 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
                 var contentType = Request.ContentType;
                 Response.ContentType = contentType;
             }
-            
+
             if (service == null || string.IsNullOrEmpty(type) || resource == null)
                 return BadRequest($"Service for resource {nameof(resource)} must exist.");
             var key = Key.Create(type);
@@ -93,15 +91,25 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
             }
         }
 
-        public ActionResult ResourceUpdate(string type, string id, Resource resource, IFhirBaseService service)
+        public async Task<ActionResult> ResourceUpdate(string type, string id, Resource resource, IFhirBaseService service)
         {
             if (service == null || string.IsNullOrEmpty(type) || resource == null || string.IsNullOrEmpty(id))
                 throw new ArgumentException("Service is null, cannot update resource of type " + type);
+            if (!id.Equals(resource.Id))
+                throw new FhirOperationException(
+                    "Resource id in request body object does not match resource identifier in request url",
+                    HttpStatusCode.BadRequest);
             var key = Key.Create(type, id);
-            var result = service.Update(key, resource);
-            if (result != null)
-                return Ok(result);
-            return BadRequest($"Service is null, cannot update resource of {type}");
+            var (updatedResource, created) = await service.UpdateAsync(key, resource);
+            if (created)
+            {
+                // If created, the resource is accessible with the same url as the PUT request
+                return Created(Request.GetEncodedUrl(), updatedResource);
+            }
+            else
+            {
+                return Ok(updatedResource);
+            }
         }
 
         public ActionResult ResourceDelete(string type, Key key, IFhirBaseService service)
@@ -142,7 +150,7 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
         // return 201 when created
         // return 202 when takes too long
         [HttpPost, Route("{type}")]
-        public ActionResult Create(string type,[FromBody] Resource resource)
+        public ActionResult Create(string type, [FromBody] Resource resource)
         {
             if (_validationEnabled)
             {
@@ -159,18 +167,18 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
         // return 201 when created
         // return 202 when takes too long
         [HttpPut, Route("{type}/{id}")]
-        public ActionResult Update(string type, string id, [FromBody] Resource resource)
+        public async Task<ActionResult> Update(string type, string id, [FromBody] Resource resource)
         {
             if (_validationEnabled)
             {
-                resource = (Resource) ValidateResource(resource, true);
+                resource = (Resource)ValidateResource(resource, true);
             }
             if (resource is OperationOutcome)
             {
                 return BadRequest(resource);
             }
             var service = ControllerHelper.GetFhirService(type, HttpContext.RequestServices);
-            return ResourceUpdate(type, id, resource, service);
+            return await ResourceUpdate(type, id, resource, service);
         }
 
         // return 201 when created
@@ -190,7 +198,7 @@ namespace FhirStarter.R4.Instigator.DotNetCore3.Controllers
         // return 201 when created
         // return 202 when takes too long
         [HttpPatch, Route("{type}/{id}")]
-        public ActionResult Patch(string type, string id, [FromBody]Resource resource)
+        public ActionResult Patch(string type, string id, [FromBody] Resource resource)
         {
             var service = ControllerHelper.GetFhirService(type, HttpContext.RequestServices);
             if (service != null)
